@@ -14,6 +14,6 @@ jobs:
       - name: test the email is correct and git is configured
         run: >
           test "${{ steps.action.outputs.email }}" == "alex.speranza@studio.unibo.it" &&
-          test "$(git config --global user.name)" == "asperan" ) &&
+          test "$(git config --global user.name)" == "asperan" &&
           test "$(git config --global user.email)" == "alex.speranza@studio.unibo.it"
 
