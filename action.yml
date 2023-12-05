@@ -14,6 +14,7 @@ inputs:
 outputs:
   email:
     description: The email found
+    value: ${{ steps.output.outputs.email }}
 
 runs:
   using: composite
@@ -27,6 +28,7 @@ runs:
         git config --global user.email "${{ steps.email-retriever.outputs.email }}"
         git config --global user.name "${{ inputs.github-username }}"
       shell: bash
-    - run: echo "email=${{ steps.email-retriever.outputs.email }}" >> "$GITHUB_OUTPUT"
+    - id: output
+      run: echo "email=${{ steps.email-retriever.outputs.email }}" >> "$GITHUB_OUTPUT"
       shell: bash
 
