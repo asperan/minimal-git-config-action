@@ -26,5 +26,7 @@ runs:
     - run: |
         git config --global user.email "${{ steps.email-retriever.outputs.email }}"
         git config --global user.name "${{ inputs.github-username }}"
+      shell: bash
     - run: echo "${{ steps.email-retriever.outputs.email }}" >> "$GITHUB_OUTPUT"
+      shell: bash
 
