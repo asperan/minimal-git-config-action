@@ -21,7 +21,7 @@ runs:
     - uses: evvanErb/get-github-email-by-username-action@v2.0
       id: email-retriever
       with:
-        username: ${{ inputs.github-username }}
+        github-username: ${{ inputs.username }}
         token: ${{ inputs.token }}
     - run: |
         git config --global user.email "${{ steps.email-retriever.outputs.email }}"
