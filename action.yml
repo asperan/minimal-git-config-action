@@ -1,0 +1,30 @@
+name: Minimal git.config
+description: Set global git.config.user.name and git.config.user.email
+author: Alex Speranza
+
+inputs:
+  username:
+    description: The username to get email for
+    required: false
+    default: ${{ github.triggering_actor }}
+  token:
+    description: Token to use for login to get the email
+    required: false
+    default: ''
+outputs:
+  email:
+    description: The email found
+
+runs:
+  using: composite
+  steps:
+    - uses: evvanErb/get-github-email-by-username-action@v2.0
+      id: email-retriever
+      with:
+        username: ${{ inputs.github-username }}
+        token: ${{ inputs.token }}
+    - run: |
+        git config --global user.email "${{ steps.email-retriever.outputs.email }}"
+        git config --global user.name "${{ inputs.github-username }}"
+    - run: echo "${{ steps.email-retriever.outputs.email }}" >> "$GITHUB_OUTPUT"
+
